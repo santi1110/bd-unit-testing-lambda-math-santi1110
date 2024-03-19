@@ -37,8 +37,8 @@ public class AtaMathTest {
 
         // THEN
         assertEquals(15, result, String.format(
-            "Expected adding two ints (%s) to return their sum (15)",
-            Arrays.toString(tuple))
+                "Expected adding two ints (%s) to return their sum (15)",
+                Arrays.toString(tuple))
         );
     }
 
@@ -81,8 +81,8 @@ public class AtaMathTest {
         // asserting that when the second line calls the add()
         // method that we should see an `ArithmeticException` thrown
         assertThrows(ArithmeticException.class,
-                     () -> ataMath.add(values),
-                     "Summing above MAX_VALUE should result in ArithmeticException thrown");
+                () -> ataMath.add(values),
+                "Summing above MAX_VALUE should result in ArithmeticException thrown");
     }
 
     @Test
@@ -94,11 +94,65 @@ public class AtaMathTest {
         // WHEN - attempt to compute the sum
         // THEN - exception thrown
         assertThrows(ArithmeticException.class,
-                     () -> ataMath.add(values),
-                     "Summing below MIN_VALUE should result in ArithmeticException thrown");
+                () -> ataMath.add(values),
+                "Summing below MIN_VALUE should result in ArithmeticException thrown");
     }
 
     // average()
 
+    @Test
+    public void average_ofSingleInteger_isThatInteger() {
+        //GIVEN
+        int value = 1;
+        int[] values = {value};
+        AtaMath ataMath = new AtaMath();
+
+        //WHEN
+        Double result = ataMath.average(values);
+
+        //THEN
+        assertEquals(Double.valueOf(value),result,  "Expected average of single integer");
+
+    }
+    @Test
+    public void average_of_SeveralIntegers_isCorrect(){
+        //GIVEN
+
+        int[] values = {2,3}; // 2.5
+        AtaMath ataMath = new AtaMath();
+
+        //WHEN
+        Double result = ataMath.average(values);
+
+        //THEN
+        assertEquals(2.5,result,  "Expected average of two integer");
+
+
+    }
+    @Test
+    public void average_ofNullArray_throwsIllegalArgumentException(){
+        //GIVEN
+
+        int[] values = null;
+        AtaMath ataMath = new AtaMath();
+
+        //THEN
+        assertThrows(IllegalArgumentException.class,
+                () -> ataMath.average(values),
+                "Expected avergae(null) to throw IllegalArgumentException");
+
+    }
+    @Test
+    public void average_ofPositiveAndNegativeIntegers_isCorrect(){
+        //GIVEN
+        int [] values = {3,-2}; //0.5
+        AtaMath ataMath = new AtaMath();
+
+        // WHEN
+        Double result = ataMath.average(values);
+
+        //THEN
+        assertEquals(0.5, result, "Expected average of positive and negative numbers to be correct");
+    }
     // PARTICIPANTS: ADD YOUR NEW TESTS HERE (and you can delete this line while you're at it)
 }
